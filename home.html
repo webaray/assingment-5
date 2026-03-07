@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Github Issue Tracker</title>
 
-<link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css">
 
     <!-- Tailwine and daisyui -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
@@ -16,11 +17,78 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body>
-    This Is home page
+
+<body class="bg-gray-100">
+
+    <nav class="bg-white shadow p-4 flex justify-between">
+
+        <div class="flex gap-2 items-center">
+            <img class="w-12" src="./assets/github-logo.png" alt="">
+
+            <h2 class="text-2xl font-bold">
+                GitHub Issues Tracker
+            </h2>
+        </div>
+
+
+        <div class="flex gap-3">
+
+            <input id="search-input" type="text" placeholder="Search" class="input input-bordered" />
+
+            <button id="search-btn" class="btn btn-primary">
+                Search
+            </button>
+
+        </div>
+
+    </nav>
+
+    <div class="max-w-7xl mx-auto p-6">
+
+        <div class="tabs gap-3">
+
+            <button
+                class="tab tab-active text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="filterIssues('all')">
+                All
+            </button>
+
+            <button class="tab text-center border-2 border-gray-300 font-bold py-2 px-4 rounded"
+                onclick="filterIssues('open')">
+                Open
+            </button>
+
+            <button class="tab text-center border-2 border-gray-300 font-bold py-2 px-4 rounded"
+                onclick="filterIssues('closed')">
+                Closed
+            </button>
+
+        </div>
+
+        <div id="issue-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+
+        </div>
+
+    </div>
+
+
+    <dialog id="issueModal" class="modal">
+
+        <div class="modal-box" id="modal-content">
+
+        </div>
+
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+
+    </dialog>
+
+
 
 
 
     <script src="./script/home.js"></script>
 </body>
+
 </html>
