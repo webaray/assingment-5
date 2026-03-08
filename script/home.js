@@ -36,8 +36,8 @@ const displayIssues = (issues) => {
 <div class="bg-white p-2 rounded">
 
                 <div class="flex justify-between mb-3">
-                    <img src="./assets/Open-Status.png" alt="">
-                    <button class="bg-amber-400 px-4 py-1 rounded-2xl">${issue.priority}</button>
+                    <img class="w-[30px]" src="./assets/Open-Status.png" alt="">
+                    <button class="bg-amber-400 px-4  rounded-2xl">${issue.priority}</button>
                 </div>
                 
                 <h2 class="font-bold text-lg">
@@ -102,7 +102,7 @@ const showModal = (issue) => {
 
     modal.innerHTML = `
 
-<div class="bg-white p-8 rounded-2xl mx-auto space-y-6">
+<div class="bg-white md:p-8 rounded-2xl mx-auto space-y-4 md:space-y-6 ">
 
 <h2 class="text-xl font-bold">
 ${issue.title}
@@ -110,7 +110,7 @@ ${issue.title}
 
 <div class="flex gap-6 items-center">
 
-<p class="bg-green-500 text-white px-4 py-2 rounded-2xl">
+<p class="bg-green-500 text-white px-4 py-1 rounded-2xl">
 ${issue.status}
 </p>
 
@@ -124,6 +124,16 @@ ${issue.status}
 ${issue.description}
 </p>
 
+ <div class="flex gap-2">
+    <p class="mt-2 bg-red-200 px-4 py-1 rounded-2xl ">
+        ${issue.status}
+    </p>
+    
+    <p class="mt-2 text-center bg-amber-200 px-4 py-1 rounded-2xl">
+     ${issue.labels}
+    </p>
+    </div>
+
 <div class="bg-gray-100 p-4 rounded-2xl flex justify-between">
 
 <p>
@@ -133,14 +143,20 @@ ${issue.assignee}
 </span>
 </p>
 
-<p>
+<p class="leading-7">
 Priority: <br>
-<span class="bg-red-500 px-4 py-2 rounded-2xl text-white">
+<span class="bg-red-500 px-5 py-1 rounded-2xl text-white">
 ${issue.priority}
 </span>
 </p>
 
 </div>
+
+<div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-primary border-none">Close</button>
+      </form>
+    </div>
 
 </div>
 
@@ -160,3 +176,62 @@ const borderColor =
 
 card.className =
     `bg-white p-4 rounded shadow ${borderColor}`;
+
+
+// Search api call
+
+// document
+// .getElementById("search-btn")
+// .addEventListener("click", function(){
+
+// const text = document
+// .getElementById("search-input")
+// .value
+// .trim();
+
+// if(!text){
+//     alert("Type something to search");
+//     return;
+// }
+
+// fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
+
+// .then(res => res.json())
+
+// .then(data => {
+
+// console.log(data);   // debug
+
+// displayIssues(data.data);
+
+// })
+
+// .catch(error => {
+// console.log(error);
+// });
+
+// });
+
+
+const searchInput = document.getElementById("search-input");
+
+searchInput.addEventListener("input", function () {
+
+const text = searchInput.value.trim();
+
+if(text === ""){
+    loadIssues(); // empty হলে সব issues load
+    return;
+}
+
+fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
+.then(res => res.json())
+.then(data => {
+
+displayIssues(data.data.issues);
+
+})
+.catch(error => console.log(error));
+
+});
+

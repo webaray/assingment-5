@@ -16,6 +16,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Font awsome -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="bg-gray-100">
@@ -43,7 +46,7 @@
 
     </nav>
 
-    <div class="max-w-7xl mx-auto p-6">
+    <div class="max-w-11/12 mx-auto p-6">
 
         <div class="tabs gap-3">
 
@@ -63,18 +66,47 @@
                 Closed
             </button>
 
+
+            
+        </div>
+        
+        
+        <div class=" flex justify-between items-center bg-gray-100 p-6 shadow mt-3 rounded">
+            <div class="flex gap-3 items-center">
+                <div>
+                    <div><img src="./assets/Aperture.png" alt=""></div>
+                </div>
+                <div>
+                    <p class="font-bold">50 <span>Issues</span></p>
+                    <p class="text-gray-400">Track and manage your project issues</p>
+
+                </div>
+            </div>
+
+            <div>
+                <ul class="flex gap-5 items-center">
+                    <li><i class="fa-solid fa-circle text-[12px] text-green-500"></i> Open</li>
+                    <li><i class="fa-solid fa-circle text-[12px] text-purple-500"></i> Closed</li>
+                </ul>
+            </div>
+
         </div>
 
-        <div id="issue-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        <div id="issue-container" class=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
 
         </div>
 
     </div>
 
 
+    <!-- Model content -->
+
     <dialog id="issueModal" class="modal">
 
-        <div class="modal-box" id="modal-content">
+        <div class="modal-box md:w-[700px] max-w-none relative" id="modal-content">
+
+
+        <!-- Modal close button -->
 
         </div>
 
@@ -83,6 +115,8 @@
         </form>
 
     </dialog>
+
+
 
 
 
