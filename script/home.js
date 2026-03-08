@@ -1,3 +1,6 @@
+let allIssues = [];
+
+
 const loadIssues = () => {
 
     fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
@@ -6,7 +9,9 @@ const loadIssues = () => {
 
         .then(data => {
 
-            displayIssues(data.data);
+            allIssues = (data.data);
+
+            displayIssues(allIssues);
 
         });
 
@@ -29,11 +34,11 @@ const displayIssues = (issues) => {
         const card = document.createElement("div");
 
         card.className =
-            "bg-white p-4 rounded shadow cursor-pointer";
+            "bg-white  rounded-2xl shadow cursor-pointer";
 
         card.innerHTML = `
 
-<div class="bg-white p-2 rounded">
+<div class="bg-white p-3 rounded-2xl border-t-4">
 
                 <div class="flex justify-between mb-3">
                     <img class="w-[30px]" src="./assets/Open-Status.png" alt="">
@@ -44,7 +49,7 @@ const displayIssues = (issues) => {
                     ${issue.title}
                 </h2>
     
-                <p class="text-gray-500">
+                <p class="text-gray-500 line-clamp-2">
                     ${issue.description}
                 </p>
     
@@ -77,6 +82,41 @@ const displayIssues = (issues) => {
 
 };
 
+// Tab filter issue
+const filterIssues = (status) => {
+
+if(status === "all"){
+
+displayIssues(allIssues);
+
+return;
+
+}
+
+const filteredIssues = allIssues.filter(issue =>
+issue.status.toLowerCase() === status
+);
+
+displayIssues(filteredIssues);
+
+};
+
+// Disply fillter
+ const buttons = document.querySelectorAll(".tab-btn");
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+
+    buttons.forEach(btn => {
+      btn.classList.remove("bg-blue-500","text-white");
+      btn.classList.add("bg-gray-200");
+    });
+
+    button.classList.remove("bg-gray-200");
+    button.classList.add("bg-blue-500","text-white");
+
+  });
+});
 // Load single issue
 
 const loadSingleIssue = (id) => {
@@ -114,7 +154,7 @@ ${issue.title}
 ${issue.status}
 </p>
 
-<p>Open by ${issue.author}</p>
+<p>Open by <strong>${issue.author}</strong></p>
 
 <p>${issue.updatedAt}</p>
 
@@ -169,13 +209,15 @@ ${issue.priority}
 
 // Card border color 
 
+const status = issue.status.toLowerCase();
+
 const borderColor =
-    issue.status === "open"
-        ? "border-t-4 border-green-500"
-        : "border-t-4 border-purple-500";
+status === "open"
+? "border-green-500"
+: "border-purple-500";
 
 card.className =
-    `bg-white p-4 rounded shadow ${borderColor}`;
+`bg-white  rounded shadow border-t-4 ${borderColor}`;
 
 
 // Search api call
