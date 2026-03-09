@@ -18,7 +18,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- Font awsome -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="bg-gray-100">
@@ -50,34 +52,33 @@
 
         <div class="tabs gap-3">
 
-            <button
-                class="tab tab-active text-center border-2 border-gray-300  font-bold py-2 px-4 rounded"
+            <button class="tab tab-btn text-center border-2 border-gray-300  font-bold py-2 px-4 rounded"
                 onclick="filterIssues('all')">
                 All
             </button>
 
-            <button class="tab text-center border-2 border-gray-300 font-bold py-2 px-4 rounded"
+            <button class="tab tab-btn text-center border-2 border-gray-300 font-bold py-2 px-4 rounded"
                 onclick="filterIssues('open')">
                 Open
             </button>
 
-            <button class="tab text-center border-2 border-gray-300 font-bold py-2 px-4 rounded"
+            <button class="tab tab-btn text-center border-2 border-gray-300 font-bold py-2 px-4 rounded"
                 onclick="filterIssues('closed')">
                 Closed
             </button>
 
 
-            
+
         </div>
-        
-        
+
+
         <div class=" flex justify-between items-center bg-gray-100 p-6 shadow mt-3 rounded">
             <div class="flex gap-3 items-center">
                 <div>
                     <div><img src="./assets/Aperture.png" alt=""></div>
                 </div>
                 <div>
-                    <p class="font-bold">50 <span>Issues</span></p>
+                    <p class="font-bold"><span id="issue-count">0</span> Issues</p>
                     <p class="text-gray-400">Track and manage your project issues</p>
 
                 </div>
@@ -106,7 +107,7 @@
         <div class="modal-box md:w-[700px] max-w-none relative" id="modal-content">
 
 
-        <!-- Modal close button -->
+            <!-- Modal close button -->
 
         </div>
 
@@ -115,6 +116,13 @@
         </form>
 
     </dialog>
+
+
+    <!-- Loading spinner -->
+
+    <div id="loader" class="text-center mt-10 hidden">
+        <span class="loading loading-spinner loading-lg"></span>
+    </div>
 
 
 

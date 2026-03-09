@@ -24,6 +24,8 @@ loadIssues();
 
 const displayIssues = (issues) => {
 
+    document.getElementById("issue-count").innerText = issues.length;
+
     const container =
         document.getElementById("issue-container");
 
@@ -38,7 +40,7 @@ const displayIssues = (issues) => {
 
         card.innerHTML = `
 
-<div class="bg-white p-3 rounded-2xl border-t-4">
+<div class="bg-white p-3 rounded-2xl">
 
                 <div class="flex justify-between mb-3">
                     <img class="w-[30px]" src="./assets/Open-Status.png" alt="">
@@ -70,6 +72,7 @@ const displayIssues = (issues) => {
                 </p>
 
                 <p> Date: ${issue.updatedAt}
+                </p>
             </div>
 
 `;
@@ -78,6 +81,9 @@ const displayIssues = (issues) => {
 
         container.appendChild(card);
 
+        const borderColor = issue.status === 'open' ? 'border-t-green-500' : 'border-t-purple-500';
+        card.className = `card border-t-4 ${borderColor} bg-base-100 shadow-xl`;
+
     });
 
 };
@@ -85,38 +91,38 @@ const displayIssues = (issues) => {
 // Tab filter issue
 const filterIssues = (status) => {
 
-if(status === "all"){
+    if (status === "all") {
 
-displayIssues(allIssues);
+        displayIssues(allIssues);
 
-return;
+        return;
 
-}
+    }
 
-const filteredIssues = allIssues.filter(issue =>
-issue.status.toLowerCase() === status
-);
+    const filteredIssues = allIssues.filter(issue =>
+        issue.status.toLowerCase() === status
+    );
 
-displayIssues(filteredIssues);
+    displayIssues(filteredIssues);
 
 };
 
-// Disply fillter
- const buttons = document.querySelectorAll(".tab-btn");
+// Button Tab Function
+const tabs = document.querySelectorAll(".tab-btn");
 
-buttons.forEach(button => {
-  button.addEventListener("click", () => {
+tabs.forEach(tab => {
 
-    buttons.forEach(btn => {
-      btn.classList.remove("bg-blue-500","text-white");
-      btn.classList.add("bg-gray-200");
-    });
+  tab.addEventListener("click", () => {
 
-    button.classList.remove("bg-gray-200");
-    button.classList.add("bg-blue-500","text-white");
+    tabs.forEach(btn => btn.classList.remove("tab-active"));
+
+    tab.classList.add("tab-active");
 
   });
+
 });
+
+
 // Load single issue
 
 const loadSingleIssue = (id) => {
@@ -207,73 +213,59 @@ ${issue.priority}
 };
 
 
-// Card border color 
-
-const status = issue.status.toLowerCase();
-
-const borderColor =
-status === "open"
-? "border-green-500"
-: "border-purple-500";
-
-card.className =
-`bg-white  rounded shadow border-t-4 ${borderColor}`;
 
 
-// Search api call
+// Search Functin build
 
-// document
-// .getElementById("search-btn")
-// .addEventListener("click", function(){
+document
+    .getElementById("search-btn")
+    .addEventListener("click", function () {
 
-// const text = document
-// .getElementById("search-input")
-// .value
-// .trim();
+        const text = document
+            .getElementById("search-input")
+            .value
+            .trim();
 
-// if(!text){
-//     alert("Type something to search");
-//     return;
-// }
+        if (!text) {
+            alert("Type something to search");
+            return;
+        }
 
-// fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
+        fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
 
-// .then(res => res.json())
+            .then(res => res.json())
 
-// .then(data => {
+            .then(data => {
 
-// console.log(data);   // debug
+                console.log(data);   // debug
 
-// displayIssues(data.data);
+                displayIssues(data.data);
 
-// })
+            })
 
-// .catch(error => {
-// console.log(error);
-// });
+            .catch(error => {
+                console.log(error);
+            });
+            
 
-// });
+    });
+
+document
+    .getElementById("search-input")
+    .addEventListener("keypress", function (e) {
+
+        if (e.key === "Enter") {
+            document.getElementById("search-btn").click();
+        }
+
+       
+    });
 
 
-const searchInput = document.getElementById("search-input");
 
-searchInput.addEventListener("input", function () {
+// Loding spinner
 
-const text = searchInput.value.trim();
+const loader = document.getElementById("loader");
 
-if(text === ""){
-    loadIssues(); // empty হলে সব issues load
-    return;
-}
-
-fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
-.then(res => res.json())
-.then(data => {
-
-displayIssues(data.data.issues);
-
-})
-.catch(error => console.log(error));
-
-});
-
+const showLoader = () => loader.classList.remove("hidden");
+const hideLoader = () => loader.classList.add("hidden");
