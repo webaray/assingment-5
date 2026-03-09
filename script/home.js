@@ -1,22 +1,3 @@
-let currentTab= "all";
-const tabActive= `bg-red-500 text-white`;
-const tabInactive = `bg-transparent text-black`
-function filterIssues(tab){
-const tabs = ["all", "open", "closed"];
-
-for(t of tabs){
-    const tabName = document.getElementById("tab-", t);
-    if(t === tab){
-        tabName.classList.remove(...tabInactive);
-        tabName.classList.add(...tabactive)
-    }
-}
-}
-
-
-
-
-
 
 const loadIssues = () => {
 
@@ -106,7 +87,8 @@ const displayIssues = (issues) => {
 };
 
 // Tab filter issue
-// const filterIssues = (status) => {
+
+const filterIssues = (status) => {
 
     if (status === "all") {
 
@@ -122,7 +104,7 @@ const displayIssues = (issues) => {
 
     displayIssues(filteredIssues);
 
-// };
+};
 
 // Button Tab Function
 const tabs = document.querySelectorAll(".tab-btn");
