@@ -1,4 +1,21 @@
-let allIssues = [];
+let currentTab= "all";
+const tabActive= `bg-red-500 text-white`;
+const tabInactive = `bg-transparent text-black`
+function filterIssues(tab){
+const tabs = ["all", "open", "closed"];
+
+for(t of tabs){
+    const tabName = document.getElementById("tab-", t);
+    if(t === tab){
+        tabName.classList.remove(...tabInactive);
+        tabName.classList.add(...tabactive)
+    }
+}
+}
+
+
+
+
 
 
 const loadIssues = () => {
@@ -83,40 +100,24 @@ const displayIssues = (issues) => {
 };
 
 // Tab filter issue
-const filterIssues = (status) => {
+// const filterIssues = (status) => {
 
-if(status === "all"){
+// if(status === "all"){
 
-displayIssues(allIssues);
+// displayIssues(allIssues);
 
-return;
+// return;
 
-}
+// }
 
-const filteredIssues = allIssues.filter(issue =>
-issue.status.toLowerCase() === status
-);
+// const filteredIssues = allIssues.filter(issue =>
+// issue.status.toLowerCase() === status
+// );
 
-displayIssues(filteredIssues);
+// displayIssues(filteredIssues);
 
-};
+// };
 
-// Disply fillter
- const buttons = document.querySelectorAll(".tab-btn");
-
-buttons.forEach(button => {
-  button.addEventListener("click", () => {
-
-    buttons.forEach(btn => {
-      btn.classList.remove("bg-blue-500","text-white");
-      btn.classList.add("bg-gray-200");
-    });
-
-    button.classList.remove("bg-gray-200");
-    button.classList.add("bg-blue-500","text-white");
-
-  });
-});
 // Load single issue
 
 const loadSingleIssue = (id) => {
